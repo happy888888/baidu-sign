@@ -76,6 +76,9 @@ def main():
         except Exception as e:
             print(f'第{ii}个账户登录异常,原因({str(e)})，跳过此账户的所有签到')
 
+    if len(bds) == 0:
+        return
+
     for x in bds:
         shopLottery(x)
 
@@ -86,7 +89,7 @@ def main():
 
     delay = next_time - int(time.time())
     if delay > 0:
-        print(f'等待{delay}秒后再次进行知道商城抽奖')
+        print(f'等待{delay}秒后进行第二次知道商城抽奖')
         time.sleep(delay)
 
     for x in bds:
