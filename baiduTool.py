@@ -30,7 +30,7 @@ class baiduTool():
         self.name = self.getLoginInfo()["userName"]
 
         try:
-            self.getLoginInfo()
+            self.getUserInfo()
         except:
             self.getTiebaLike = self.getTiebaLikeX
         else:
@@ -69,7 +69,7 @@ class baiduTool():
         "获取登录信息"
         return self.__session.get("https://zhidao.baidu.com/api/loginInfo",).json()
 
-    def getLoginInfo(self):
+    def getUserInfo(self):
         "获取用户信息(需要stoken)"
         return self.__session.get("https://tieba.baidu.com/f/user/json_userinfo", allow_redirects=False).json()
 
@@ -90,7 +90,7 @@ class baiduTool():
             if 'info' in data:
                 return {"code":data["error_code"],"info":data["error_msg"]}
             else:
-                return {"code":data["error_code"],"info":str(data)}
+                return {"code":data["error_code"],"info":f'获得经验{data["user_info"]["sign_bonus_point"]}  已连续签到{data["user_info"]["cont_sign_num"]}天'}
 
     def zhidaoSign(self):
         "签到百度知道"
@@ -102,7 +102,7 @@ class baiduTool():
             "utdata": "91%2C91%2C106%2C97%2C97%2C102%2C98%2C91%2C99%2C103%2C97%2C100%2C126%2C106%2C100%2C102%2C15823570069820",
             "stoken": stoken
             }
-        content = self.__session.post("https://zhidao.baidu.com/submit/user", data=data, timeout=(5, 20))
+        content = self.__session.post("https://zhidao.baidu.com/submit/user", data=data)
         data = json.loads(content.text)
         if(data["errorNo"] == 0):
             return {"code":0,"info":"签到成功"}

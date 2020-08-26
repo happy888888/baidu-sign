@@ -38,7 +38,7 @@ def signTieba(bd):
         for x in tb:
             ii += 1
             try:
-                re = t.tiebaSign(x)
+                re = bd.tiebaSign(x)
             except Exception as e:
                 print(f'贴吧 {x} 签到异常,原因{str(e)}')
             else:
