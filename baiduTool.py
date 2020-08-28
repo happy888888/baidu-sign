@@ -84,13 +84,10 @@ class baiduTool():
         #构造签到数据包，客户端有对参数加了md5验证
         content = self.__session.post("http://c.tieba.baidu.com/c/c/forum/sign", data=data)
         data = json.loads(content.text)
-        if(data["error_code"] == 0):
-            return {"code":0,"info":f'获得经验:{data["user_info"]["sign_bonus_point"]}'}
+        if(data["error_code"] == '0'):
+            return {"code":0,"info":f'获得经验:{data["user_info"]["sign_bonus_point"]}  已连续签到{data["user_info"]["cont_sign_num"]}天'}
         else:
-            if 'info' in data:
-                return {"code":data["error_code"],"info":data["error_msg"]}
-            else:
-                return {"code":data["error_code"],"info":f'获得经验{data["user_info"]["sign_bonus_point"]}  已连续签到{data["user_info"]["cont_sign_num"]}天'}
+            return {"code":int(data["error_code"]),"info":data["error_msg"]}
 
     def zhidaoSign(self):
         "签到百度知道"
