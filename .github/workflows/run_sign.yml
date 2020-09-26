@@ -7,6 +7,8 @@ name: 'run sign'
 on:
   schedule:
     - cron: '0 2 * * *' #上午10点执行
+  watch:
+    types: started
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
